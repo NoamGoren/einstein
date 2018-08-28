@@ -1,0 +1,46 @@
+
+.grey{
+  background-color: grey;
+}
+
+h1{
+  color:pink;
+  text-align: center;
+
+}
+
+#titleContainer{
+  color:#913C3C;
+  background-color: lightgrey;
+  padding: 15px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+#imgContainer{
+  color:#913C3C;
+  background-color: lightgrey;
+  width: 45px;
+  margin-left: 10px;
+  border-radius	: 50%;
+}
+
+.section {
+  padding: 15px;
+}
+
+.frame{
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: white;
+  border-radius	: 5%;
+}
+
+.accordion {
+	padding: 1.8%;
+	width: 100%;
+	text-align: left;
+	font-size: 100%;
+	transition: 0.4s;
+}
+

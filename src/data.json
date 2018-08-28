@@ -1,0 +1,398 @@
+[
+  {
+    "Code": "0",
+    "Type": "Script Error/ Customer Error/ Logic Error",
+    "Description": "Error 0 means that the script ends succesfully, however it doesn't mean that all the information the was extracted is corrct, this makes error code 0 to be very complicated since there may be many issues even though during the script execution no exceptions were thrown",
+    "Actions":[
+      {
+        "Title": "Missing Information",
+        "Link": "true",
+        "Steps": [
+          {
+            "Description": "Search for \"Missing Information\"",
+            "Link":"Missing Information"
+          }
+        ]
+      },
+      {
+        "Title": "Duplicated Information",
+        "Link": "true",
+        "Steps": [
+          {
+            "Description": "Search for \"Duplicate Information\""
+          }
+        ]
+      },
+      {
+        "Title": "Incorrect Information",
+        "Link": "true",
+        "Steps": [
+          {
+            "Description": "Search for \"Incorrect information\""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Code": "101",
+    "Type": "Script Error",
+    "Description": "Error 101 is a script error",
+    "Actions":[
+      {
+        "Title": "Has OTP",
+        "Steps": [
+          {
+            "Description": "Go to splunk and search for the exact place in the code where the error has occured"
+          },
+          {
+            "Description": "Search for SOE"
+          },
+          {
+            "Description": "Using SOE and Splunk recored you'll be able to replicate the error"
+          }
+        ]
+      },
+      {
+        "Title": "No OTP",
+        "Steps": [
+          {
+            "Description": "Run the script (make sure to download the last verstion) and locate the exact line in the code where the error occur"
+          },
+          {
+            "Description": "If HTTP method does not work as expected - login to the provider via the website and compare the first HTTP method that does not send us to the correct page"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Code": "103",
+    "Type": "Customer error",
+    "Description": "Error 103 is bad credentials error",
+    "Actions":[
+      {
+      "Title": "Verify the credentials",
+      "Steps": [
+      {
+        "Description": "Try to login to the provider website from the browser. Make sure to update the credentials according to the required pattern",
+        "Steps": [
+          {
+            "Description": "Success – It’s a script issue - go to step 8"
+          },
+          {
+            "Description": "Failure – Might be a script issue, let’s continue checking"
+          }
+        ]
+      },
+      {
+        "Description": "Check tgtihe quality report to see what is the 103 error by %",
+        "Steps": [
+          {
+            "Description": "check the hourly report to see if it was a peak (possible site down)"
+          },
+          {
+            "Description": "Check fi blocking (via splunk – add link)"
+          },
+          {
+            "Description": "go to the script and check the post login"
+          },
+          {
+            "Description": "Verify the encryption methods"
+          }
+        ]
+      },
+      {
+        "Description": "Check in Splunk if the user gets alternately 103 and 0 error code",
+        "Steps": [
+          {
+            "Description": "Yes? make sure that the logout function works fine (vis Splunk – add account link)"
+          }
+        ]
+      },
+      {
+        "Description": "Check in Splunk if the user gets alternately 102 and 0 error codes",
+        "Steps": [
+          {
+            "Description": "Check fi blocking (vis Splunk – add link)"
+          }
+        ]
+      },
+      {
+        "Description": "Check blocking - try to connect to the provider website using VPN, change the proxy to dash.intuit.com with port 8081"
+      },
+      {
+        "Description": "Check institution manager",
+        "Steps": [
+          {
+            "Description": "Password is longer than the maximal length configured in IM"
+          },
+          {
+            "Description": "Validate credential keys are correct (match the website)"
+          }
+        ]
+      },
+      {
+        "Description": "Using API? Sometimes when the user doesn’t accept the terms we will see 103 error"
+      },
+      {
+        "Description": "Verify the login",
+        "Steps": [
+          {
+            "Description": "Verify the login calls"
+          },
+          {
+            "Description": "If encryption exist - validate the encryption logics"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Title": "Customer Action Required",
+    "Steps": [
+      {
+        "Description": "Ask the care agent to verify that the customer can login to the provider website"
+      },
+      {
+        "Description": "Ask the customer to edit the provider's credentials in the application"
+      },
+      {
+        "Description": "Ask the user what login URL is he trying to access, send a screen shot after loging in (the user can cover his financial info)"
+      }
+    ]
+  }
+]
+  },
+  {
+    "Code": "105",
+    "Type": "Site Error",
+    "Description": "Error 105 is a site down error",
+    "Actions":[
+      {
+        "Title": "Verify Site Down",
+        "Steps": [
+          {
+            "Description": "Try to login to the provider website via the browser"
+          },
+          {
+            "Description": "If during the process you encountered a \"site down\"\/\"site maintenance\" error - close the ticket"
+          }
+        ]
+      },
+      {
+        "Title": "Site is not down",
+        "Steps": [
+          {
+            "Description": "If the site is not really down you'll need to compare between the script's HTTP requests and the browser's HTTP requests"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Code": "323",
+    "Type": "Logic Error",
+    "Description": "Error 323 occur when account in the request match multiple accounts in the aggregation response This error comes from the logics above aggregation and not from the script. The script error code will be 0",
+    "Actions":[
+      {
+        "Title": "Verify the duplication",
+        "Steps": [
+          {
+            "Description": "Serch for this customer in the \"Customer Central\" dashboard in dash and see what is the account(s) with 323 error code. Try to understand if the 323 account(s) descriptors were changed or if the user added account(s) with similar properties"
+          },
+          {
+            "Description": "Run the script and compare the Json output with the data in the website to confirm that we do not return the same account more than once"
+          }
+        ]
+      },
+      {
+        "Title": "Additional Actions",
+        "Steps": [
+          {
+            "Description": "You can also concat the account number to the account name if two accounts looks similar so that the match factor between these account will be decreased"
+          }
+        ]
+      },
+      {
+        "Title": "Customer actions (QuickBooks)",
+        "Steps": [
+          {
+            "Description": "If you are sure that we extract the data as it is in the website ask the customer to reconnect his account"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Code": "324",
+    "Type": "Logic Error",
+    "Description": "Error 324 occur when aggregation isn't able to match scraped accounts with the existing accounts properly. This error comes from the logics that above aggregation and not from the script. The script error code will be 0.",
+    "Actions":[
+      {
+        "Title": "Verify missing accounts",
+        "Steps": [
+          {
+            "Description": "Serch for this customer in the \"Customer Central\" dashboard in dash and see what is the account(s) with 324 error code. Try to understand if this account was disappeared from the website, or if the account descriptors were changed"
+          },
+          {
+            "Description": "Run the script and compare the Json output with the data in the website to confirm that we scrape all the accounts from the summary page"
+          }
+        ]
+      },
+      {
+        "Title": "Customer Actions",
+        "Steps": [
+          {
+            "Description": "This error can happen due to valid reason, such as changes in the account number or removal of sub-account from the website If you are sure that we extract the data as it is in the website ask the customer to reconnect his account"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Code": "Missing Information",
+    "Type": "Script Error/Customer Error",
+    "Description": "TODO",
+    "Actions":[
+      {
+        "Title": "Missing account ",
+        "Steps": [
+          {
+            "Description": "Check if account is inactive - In such case close the ticket and explain to customer"
+          },
+          {
+            "Description": "Check if site changed and xpath skipped - In such case modify Xpath"
+          },
+          {
+            "Description": "Check if call to different script  incorrectly"
+          }
+        ]
+      },
+      {
+        "Title": "Missing transactions - Doesn't return in script",
+        "Steps": [
+          {
+            "Description": "Check if the script skips it - In such case modify the script"
+          },
+          {
+            "Description": "Does the information appear in the website?",
+            "Steps": [
+              {
+                "Description": "Yes - fix script"
+              },
+              {
+                "Description": "No - Nothing to do, explain the customer the situation"
+              }
+            ]
+          },
+          {
+            "Description": "Check that the customer added the correct FI (for example: customer of Business account add the Personal bank, the customer can see the balacne but not the transactions)"
+          }
+        ]
+      },
+      {
+        "Title": "Missing transactions - Appears in script",
+        "Steps": [
+          {
+            "Description": "Check case of CCDB edit/Jira"
+          },
+          {
+            "Description": "Check if temporary issue - In such case it is a potential fix"
+          },
+          {
+            "Description": "Check if user configured 7/30 days of transactions in QBO"
+          },
+          {
+            "Description": "Check if Non unique FIID"
+          },
+          {
+            "Description": "Check the Overlap/ROD configurations"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Code": "Duplicated Information",
+    "Type": "Script Error/ Customer Error/ Logic Error",
+    "Description": "TODO",
+    "Actions":[
+      {
+        "Title": "Duplicate transactions ",
+        "Steps": [
+          {
+            "Description": "Check if it is duplicated in the website - In such case there is nothing to do from our end"
+          },
+          {
+            "Description": "Check if it caused by non unique FIID"
+          },
+          {
+            "Description": "Check if it caused by overlap configurations"
+          },
+          {
+            "Description": "Check if it caused bט pending transactions in QBO that not updating"
+          },
+          {
+            "Description": "Check if there was any modifications recently to the transactions flow in the script (for example changing credit transactions to debit and vise versa)",
+            "Steps": [
+              {
+                "Description": "Mint - Use soft delete"
+              },
+              {
+                "Description": "QBO - User will need to manually exclude the duplicated transactions"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Code": "Incorrect Information",
+    "Type": "Script Error/ Customer Error/ Logic Error",
+    "Description": "We often get tickets syaing that the customer see incorrect information, this cases needs to be examined carefully, since incorrect data extraction is ",
+    "Actions":[
+      {
+        "Title": "Incorrect in script",
+        "Steps": [
+          {
+            "Description": "Fix the script"
+          }
+        ]
+      },
+      {
+        "Title": "Correct in script - Incorrect in Dash",
+        "Steps": [
+          {
+            "Description": "Wrong account type - CCDB edit"
+          },
+          {
+            "Description": "Wrong account balance",
+            "Steps": [
+              {
+                "Description": "Check whether the currency is correct -> if so, open FI for the correct country"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Title": "Correct in script and Dash",
+        "Steps": [
+          {
+            "Description": "If the user wants to categorize the account type differently",
+            "Steps": [
+              {
+                "Description": "If the customer is correct - fix script. add miscat"
+              },
+              {
+                "Description": "If the customer is wrong - close the ticket, explain the customer"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
